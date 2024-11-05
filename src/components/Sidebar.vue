@@ -7,26 +7,38 @@
             <ul class="space-y-2 mt-6 font-medium">
                 <li>
                     <label for="code" class="block text-sm/6 font-medium text-gray-900">Código</label>
-                    <input id="code" name="code" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                    <input id="code" name="code" type="text" autofocus
+                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
                 </li>
                 <li>
                     <label for="name" class="block text-sm/6 font-medium text-gray-900">Nome</label>
                     <input id="name" name="name" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
                 </li>
                 <li>
                     <label for="description" class="block text-sm/6 font-medium text-gray-900">Descrição</label>
                     <input id="description" name="description" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
                 </li>
                 <li>
-                    <label for="quantity" class="block text-sm/6 font-medium text-gray-900">Quantidade</label>
+                    <label for="quantity" class="block text-sm/6 font-medium text-gray-900">Quantidade (maior ou igual)</label>
                     <input id="quantity" name="quantity" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
                 </li>
                 <li>
-                    <button @click="login"
+                    <label for="start_date" class="block text-sm/6 font-medium text-gray-900">Cadastrado de</label>
+                    <input id="start_date" name="start_date" type="date"
+                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                </li>
+                <li>
+                    <label for="end_date" class="block text-sm/6 font-medium text-gray-900">Cadastrado até</label>
+                    <input id="end_date" name="end_date" type="date"
+                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                </li>
+            </ul>
+            <ul class="space-y-2 mt-6">
+                <li>
+                    <button @click="search"
                         class="flex w-full justify-center rounded-md bg-lc-purple-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-lc-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lc-purple-600">Buscar</button>
                 </li>
             </ul>

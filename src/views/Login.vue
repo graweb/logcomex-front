@@ -27,7 +27,7 @@ async function login() {
                     <label for="email" class="block text-sm/6 font-medium text-gray-900">E-mail</label>
                     <div class="mt-2">
                         <input id="email" name="email" type="email" v-model="fields.email"
-                            class="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                            class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@ async function login() {
                     <div class="mt-2">
                         <input id="password" name="password" type="password" v-model="fields.password"
                             autocomplete="current-password"
-                            class="block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                            class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
                     </div>
                 </div>
             </div>
