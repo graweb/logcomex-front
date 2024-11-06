@@ -1,5 +1,5 @@
 <template>
-    <Line :data="data" :options="options" />
+    <Line :data="chartData" :options="options" />
 </template>
 
 <script lang="ts">
@@ -14,7 +14,8 @@ import {
     Legend
 } from 'chart.js'
 import { Line } from 'vue-chartjs'
-import * as chartLineConfig from '../../stores/chartLineConfig.ts'
+import { defineComponent } from 'vue'
+import { useChartLineStore } from '../../stores/chartLine'
 
 ChartJS.register(
     CategoryScale,
@@ -26,13 +27,26 @@ ChartJS.register(
     Legend
 )
 
-export default {
-    name: 'App',
+export default defineComponent({
+    name: 'ChartLine',
     components: {
         Line
     },
-    data() {
-        return chartLineConfig
-    }
-}
+    computed: {
+        chartData() {
+            const chartLineStore = useChartLineStore();
+            return chartLineStore.chartLineData;
+        },
+        options() {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+            };
+        }
+    },
+    async mounted() {
+        const chartLineStore = useChartLineStore();
+        await chartLineStore.fetchChartLineData();
+    },
+});
 </script>

@@ -1,9 +1,9 @@
 <template>
-    <Bar :data="data" :options="options" />
+    <Bar :data="barChartData" :options="options" />
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import {
     Chart as ChartJS,
     Title,
@@ -12,21 +12,21 @@ import {
     BarElement,
     CategoryScale,
     LinearScale,
-    ChartData
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import * as chartBarConfig from '../../stores/chartBarConfig.ts'
+import { useChartBarStore } from '../../stores/chartBar'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-const options = chartBarConfig.options
-const data = ref<ChartData<'bar'>>({
-    datasets: []
-})
+const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+}
+
+const chartBarStore = useChartBarStore();
+const barChartData = computed(() => chartBarStore.barChartData);
 
 onMounted(() => {
-    setInterval(() => {
-        data.value = chartBarConfig.randomData()
-    }, 1000)
-})
+    chartBarStore.fetchBarChartData();
+});
 </script>

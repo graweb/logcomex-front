@@ -1,12 +1,11 @@
 <template>
-    <Pie :data="chartData" v-if="chartType == 'pie'" />
-    <Doughnut :data="chartData" v-if="chartType == 'doughnut'" />
+    <Pie :data="chartPieData" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useChartStore } from '../../stores/chartRounded';
-import { Pie, Doughnut } from 'vue-chartjs';
+import { useChartStore } from '../../stores/chartPie';
+import { Pie } from 'vue-chartjs';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,13 +14,6 @@ export default defineComponent({
     name: 'Chart',
     components: {
         Pie,
-        Doughnut,
-    },
-    props: {
-        chartType: {
-            type: String,
-            required: true,
-        },
     },
     data() {
         return {
@@ -36,14 +28,14 @@ export default defineComponent({
         };
     },
     computed: {
-        chartData() {
+        chartPieData() {
             const chartStore = useChartStore();
-            return chartStore.chartData;
+            return chartStore.chartPieData;
         },
     },
     async mounted() {
         const chartStore = useChartStore();
-        await chartStore.fetchChartData();
+        await chartStore.fetchChartPieData();
     },
 });
 </script>
