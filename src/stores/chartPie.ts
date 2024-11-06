@@ -3,9 +3,8 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./auth";
 import { toast } from "../components/toast/Toast.ts";
-import dayjs from 'dayjs';
 
-export const useChartStore = defineStore("chartPie", {
+export const useChartPieStore = defineStore("chartPie", {
   state: () => ({
     chartPieData: {
       labels: [] as string[],
@@ -14,15 +13,15 @@ export const useChartStore = defineStore("chartPie", {
   }),
 
   actions: {
-    async fetchChartPieData() {
+    async fetchChartPieData(start_date: string, end_date: string) {
       const authStore = useAuthStore();
       const config = {
         headers: {
           Authorization: `Bearer ${authStore.accessToken}`,
         },
         params: {
-          start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
-          end_date: dayjs().endOf('month').format('YYYY-MM-DD'),
+          start_date,
+          end_date,
           paginate: false,
           hasMonth: false,
           hasOrder: 'desc'

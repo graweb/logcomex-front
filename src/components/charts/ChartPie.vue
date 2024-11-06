@@ -4,9 +4,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useChartStore } from '../../stores/chartPie';
+import { useChartPieStore } from '../../stores/chartPie';
 import { Pie } from 'vue-chartjs';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import dayjs from 'dayjs'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -29,13 +30,13 @@ export default defineComponent({
     },
     computed: {
         chartPieData() {
-            const chartStore = useChartStore();
+            const chartStore = useChartPieStore();
             return chartStore.chartPieData;
         },
     },
     async mounted() {
-        const chartStore = useChartStore();
-        await chartStore.fetchChartPieData();
+        const chartStore = useChartPieStore();
+        await chartStore.fetchChartPieData(dayjs().startOf('month').format('YYYY-MM-DD'), dayjs().endOf('month').format('YYYY-MM-DD'));
     },
 });
 </script>

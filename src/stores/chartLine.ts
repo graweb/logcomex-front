@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./auth";
 import { toast } from "../components/toast/Toast.ts";
-import dayjs from 'dayjs';
 
 interface LineChartLineData {
   labels: string[];
@@ -23,15 +22,15 @@ export const useChartLineStore = defineStore("chartLine", {
   }),
 
   actions: {
-    async fetchChartLineData() {
+    async fetchChartLineData(start_date: string, end_date: string) {
       const authStore = useAuthStore();
       const config = {
         headers: {
           Authorization: `Bearer ${authStore.accessToken}`,
         },
         params: {
-          start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
-          end_date: dayjs().endOf('month').format('YYYY-MM-DD'),
+          start_date,
+          end_date,
           paginate: false,
           hasMonth: true,
           hasOrder: 'desc'

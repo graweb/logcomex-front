@@ -1,44 +1,63 @@
-<script setup></script>
+<script setup>
+import { reactive, ref, defineEmits } from 'vue';
+import Input from '../components/Input.vue';
+import Details from '../components/Details.vue';
+import { toast } from '../components/toast/Toast.ts';
+
+const emit = defineEmits(['filterData']); // Emite o evento 'filterData'
+
+const fields = reactive({
+    code: "",
+    name: "",
+    description: "",
+    quantity: "",
+});
+
+// Referência para o modal
+const modal = ref(null);
+
+// Função para abrir o modal
+function openModal() {
+    const filledFieldsCount = Object.values(fields).filter(value => value !== "").length;
+
+    if (filledFieldsCount !== 1) {
+        toast('warning', 'Preencha apenas um campo para fazer a busca');
+        return;
+    }
+
+    // Emitir os dados para o componente pai
+    emit('filterData', { ...fields });
+    modal.value.open();
+}
+</script>
+
 <template>
+    <Details ref="modal" @filterData="filterProducts" />
     <aside id="logo-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul class="space-y-2 mt-6 font-medium">
                 <li>
-                    <label for="code" class="block text-sm/6 font-medium text-gray-900">Código</label>
-                    <input id="code" name="code" type="text" autofocus
-                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                    <Input id="code" name="code" type="text" v-model="fields.code" label="Código"
+                        placeholder="Digite o código" />
                 </li>
                 <li>
-                    <label for="name" class="block text-sm/6 font-medium text-gray-900">Nome</label>
-                    <input id="name" name="name" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                    <Input id="name" name="name" type="text" v-model="fields.name" label="Nome"
+                        placeholder="Digite o nome" />
                 </li>
                 <li>
-                    <label for="description" class="block text-sm/6 font-medium text-gray-900">Descrição</label>
-                    <input id="description" name="description" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                    <Input id="description" name="description" type="text" v-model="fields.description"
+                        label="Descrição" placeholder="Digite a descrição" />
                 </li>
                 <li>
-                    <label for="quantity" class="block text-sm/6 font-medium text-gray-900">Quantidade (maior ou igual)</label>
-                    <input id="quantity" name="quantity" type="text"
-                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
-                </li>
-                <li>
-                    <label for="start_date" class="block text-sm/6 font-medium text-gray-900">Cadastrado de</label>
-                    <input id="start_date" name="start_date" type="date"
-                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
-                </li>
-                <li>
-                    <label for="end_date" class="block text-sm/6 font-medium text-gray-900">Cadastrado até</label>
-                    <input id="end_date" name="end_date" type="date"
-                        class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
+                    <Input id="quantity" name="quantity" type="text" v-model="fields.quantity"
+                        label="Quantidade (maior ou igual)" placeholder="Digite a quantidade" />
                 </li>
             </ul>
             <ul class="space-y-2 mt-6">
                 <li>
-                    <button @click="search"
+                    <button @click="openModal"
                         class="flex w-full justify-center rounded-md bg-lc-purple-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-lc-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lc-purple-600">Buscar</button>
                 </li>
             </ul>

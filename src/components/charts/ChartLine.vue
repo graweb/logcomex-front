@@ -16,6 +16,7 @@ import {
 import { Line } from 'vue-chartjs'
 import { defineComponent } from 'vue'
 import { useChartLineStore } from '../../stores/chartLine'
+import dayjs from 'dayjs'
 
 ChartJS.register(
     CategoryScale,
@@ -46,7 +47,7 @@ export default defineComponent({
     },
     async mounted() {
         const chartLineStore = useChartLineStore();
-        await chartLineStore.fetchChartLineData();
+        await chartLineStore.fetchChartLineData(dayjs().startOf('month').format('YYYY-MM-DD'), dayjs().endOf('month').format('YYYY-MM-DD'));
     },
 });
 </script>

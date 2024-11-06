@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./auth";
 import { toast } from "../components/toast/Toast.ts";
-import dayjs from 'dayjs';
 
 interface Dataset {
   label: string;
@@ -29,15 +28,15 @@ export const useChartPolarAreaStore = defineStore("chartPolarArea", {
   }),
 
   actions: {
-    async fetchChartPolarAreaData() {
+    async fetchChartPolarAreaData(start_date: string, end_date: string) {
       const authStore = useAuthStore();
       const config = {
         headers: {
           Authorization: `Bearer ${authStore.accessToken}`,
         },
         params: {
-          start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
-          end_date: dayjs().endOf('month').format('YYYY-MM-DD'),
+          start_date,
+          end_date,
           paginate: false,
           hasMonth: false,
           hasOrder: 'asc'

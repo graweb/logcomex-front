@@ -1,16 +1,17 @@
 <script setup>
 import { reactive } from 'vue';
 import { useAuthStore } from '../stores/auth';
+import Input from '../components/Input.vue';
 
 const authStore = useAuthStore()
 
 const fields = reactive({
-  email: "user@logcomex.com.br",
-  password: "password",
+    email: "user@logcomex.com.br",
+    password: "password",
 })
 
 async function login() {
-  await authStore.login(fields.email, fields.password);
+    await authStore.login(fields.email, fields.password);
 }
 </script>
 
@@ -23,24 +24,11 @@ async function login() {
             </div>
 
             <div class="space-y-4">
-                <div>
-                    <label for="email" class="block text-sm/6 font-medium text-gray-900">E-mail</label>
-                    <div class="mt-2">
-                        <input id="email" name="email" type="email" v-model="fields.email"
-                            class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
-                    </div>
-                </div>
+                <Input id="email" name="email" type="email" v-model="fields.email" label="E-mail"
+                    placeholder="Digite seu e-mail" />
 
-                <div>
-                    <div class="flex items-center justify-between">
-                        <label for="password" class="block text-sm/6 font-medium text-gray-900">Senha</label>
-                    </div>
-                    <div class="mt-2">
-                        <input id="password" name="password" type="password" v-model="fields.password"
-                            autocomplete="current-password"
-                            class="block w-full rounded-md border-0 py-1.5 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-lc-purple-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-ls-purple-600 sm:text-sm/6">
-                    </div>
-                </div>
+                <Input id="password" name="password" type="password" v-model="fields.password" label="Senha"
+                    placeholder="Digite sua senha" />
             </div>
 
             <div class="mt-6">

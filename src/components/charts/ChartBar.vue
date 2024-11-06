@@ -4,6 +4,7 @@
 
 <script lang="ts" setup>
 import { onMounted, computed } from 'vue'
+import dayjs from 'dayjs'
 import {
     Chart as ChartJS,
     Title,
@@ -27,6 +28,6 @@ const chartBarStore = useChartBarStore();
 const barChartData = computed(() => chartBarStore.barChartData);
 
 onMounted(() => {
-    chartBarStore.fetchBarChartData();
+    chartBarStore.fetchBarChartData(dayjs().startOf('month').format('YYYY-MM-DD'), dayjs().endOf('month').format('YYYY-MM-DD'));
 });
 </script>

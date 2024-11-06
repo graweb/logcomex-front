@@ -6,6 +6,7 @@
 import { defineComponent, onMounted, computed } from 'vue';
 import { useChartPolarAreaStore } from '../../stores/chartPolarArea';
 import { PolarArea } from 'vue-chartjs';
+import dayjs from 'dayjs'
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -25,7 +26,7 @@ export default defineComponent({
     const chartStore = useChartPolarAreaStore();
 
     onMounted(() => {
-      chartStore.fetchChartPolarAreaData();
+      chartStore.fetchChartPolarAreaData(dayjs().startOf('month').format('YYYY-MM-DD'), dayjs().endOf('month').format('YYYY-MM-DD'));
     });
 
     return {

@@ -24,7 +24,7 @@ async function logout() {
                     <img src="https://pbs.twimg.com/media/Ff_r69mWYAIBetN?format=png&name=4096x4096" class="h-16" alt="Logcomex" />
                 </div>
                 <div class="flex items-center">
-                    <button class="bg-red-500 hover:bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-full" @click="logout">
+                    <button class="bg-orange-500 hover:bg-orange-700 text-white text-sm font-bold py-2 px-4 rounded-full" @click="logout">
                         <Logout />
                     </button>
                 </div>

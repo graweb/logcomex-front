@@ -7,6 +7,7 @@ import { defineComponent } from 'vue';
 import { useChartDoughnutStore } from '../../stores/chartDoughnut';
 import { Doughnut } from 'vue-chartjs';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import dayjs from 'dayjs'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -35,7 +36,7 @@ export default defineComponent({
     },
     async mounted() {
         const chartStore = useChartDoughnutStore();
-        await chartStore.fetchChartDoughnutData();
+        await chartStore.fetchChartDoughnutData(dayjs().startOf('month').format('YYYY-MM-DD'), dayjs().endOf('month').format('YYYY-MM-DD'));
     },
 });
 </script>

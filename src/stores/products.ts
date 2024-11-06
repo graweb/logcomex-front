@@ -1,36 +1,30 @@
-// stores/chartStore.ts
+// stores/products.ts
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "./auth";
 import { toast } from "../components/toast/Toast.ts";
 
-export const useChartDoughnutStore = defineStore("chartDoughnut", {
+export const useProductsStore = defineStore("products", {
   state: () => ({
-    chartDoughnutData: {
-      labels: [] as string[],
-      datasets: [] as { backgroundColor: string[]; data: number[] }[],
-    },
+    products: [],
   }),
-
   actions: {
-    async fetchChartDoughnutData(start_date: string, end_date: string) {
+    async fetchProducts(filters: any) {
+        console.log(filters);
       const authStore = useAuthStore();
       const config = {
         headers: {
           Authorization: `Bearer ${authStore.accessToken}`,
         },
         params: {
-          start_date,
-          end_date,
-          paginate: false,
-          hasMonth: false,
-          hasOrder: 'desc'
+            paginate: true,
+            filters
         },
       };
       await axios
         .get("http://localhost/api/products", config)
         .then((res) => {
-          this.chartDoughnutData = res.data;
+          this.products = res.data.data;
         })
         .catch((error) => {
           toast(
