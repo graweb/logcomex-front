@@ -43,7 +43,7 @@ export const useChartPolarAreaStore = defineStore("chartPolarArea", {
         },
       };
       await axios
-        .get("http://localhost/api/products", config)
+        .get(import.meta.env.VITE_API_URL+"/products", config)
         .then((res) => {
           this.chartPolarAreaData = res.data;
         })

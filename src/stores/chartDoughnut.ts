@@ -28,7 +28,7 @@ export const useChartDoughnutStore = defineStore("chartDoughnut", {
         },
       };
       await axios
-        .get("http://localhost/api/products", config)
+        .get(import.meta.env.VITE_API_URL+"/products", config)
         .then((res) => {
           this.chartDoughnutData = res.data;
         })

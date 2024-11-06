@@ -32,7 +32,7 @@ export const useChartBarStore = defineStore("chartBar", {
         },
       };
       await axios
-        .get("http://localhost/api/products", config)
+        .get(import.meta.env.VITE_API_URL+"/products", config)
         .then((res) => {
           this.barChartData = res.data;
         })

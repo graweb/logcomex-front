@@ -7,10 +7,10 @@
 Verifique se o Docker e o Docker Composer estão instalados em sua máquina
 
 1. Clone o repositório
-2. Rode os comandos 
+2. Altere o arquivo .env para a URL do back end
+3. Rode os comandos 
 - ```npm install```
 - ```npm run dev```
-3. Caso precise, altere o arquivo .env para a URL do back end
 
 ## Links
 

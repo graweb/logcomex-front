@@ -11,6 +11,7 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     init() {
+      this.checkUserLogged();
       this.user = JSON.parse(localStorage.getItem("user") as string) || null;
       this.accessToken = localStorage.getItem("access_token") || "";
     },
@@ -29,7 +30,7 @@ export const useAuthStore = defineStore("auth", {
       router.push("/login");
     },
     async login(email: string, password: string) {
-      await axios.post('http://localhost/api/login', {
+      await axios.post(import.meta.env.VITE_API_URL+'/login', {
         email,
         password
       })
@@ -41,11 +42,19 @@ export const useAuthStore = defineStore("auth", {
         toast('error', error.response?.data?.message || 'Erro ao fazer login');
       });
     },
+    async checkUserLogged() {
+      await axios.post(import.meta.env.VITE_API_URL+'/check_user')
+      .then(() => {
+      })
+      .catch(() => {
+        this.removeUser();
+      });
+    },
     async logout() {
       const config = {
         headers: { Authorization: `Bearer ${this.accessToken}` }
       };
-      await axios.post('http://localhost/api/logout', '', config)
+      await axios.post(import.meta.env.VITE_API_URL+'/logout', '', config)
       .then(() => {
         this.removeUser();
       })

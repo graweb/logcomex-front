@@ -22,7 +22,7 @@ export const useProductsStore = defineStore("products", {
         },
       };
       await axios
-        .get("http://localhost/api/products", config)
+        .get(import.meta.env.VITE_API_URL+"/products", config)
         .then((res) => {
           this.products = res.data.data;
         })
