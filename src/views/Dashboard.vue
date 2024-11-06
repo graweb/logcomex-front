@@ -50,7 +50,7 @@ function search() {
 
 <template>
   <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
         <Input id="start_date" name="start_date" type="date" v-model="fields.start_date" label="Cadastrado de"
           @change="search" />
@@ -61,26 +61,26 @@ function search() {
       <label class="block text-sm/6 font-medium text-gray-900 mb-2 mt-4">Últimos 5 produtos cadastrados por
         região</label>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-        <div class="flex items-center justify-center h-80 rounded bg-gray-50 dark:bg-gray-800">
+        <div class="flex items-center justify-center h-80 rounded bg-gray-50">
           <ChartPie />
         </div>
-        <div class="flex items-center justify-center h-80 rounded bg-gray-50 dark:bg-gray-800">
+        <div class="flex items-center justify-center h-80 rounded bg-gray-50">
           <ChartPolarArea />
         </div>
-        <div class="flex items-center justify-center h-80 rounded bg-gray-50 dark:bg-gray-800">
+        <div class="flex items-center justify-center h-80 rounded bg-gray-50">
           <ChartDoughnut />
         </div>
       </div>
       <hr />
       <label class="block text-sm/6 font-medium text-gray-900 mb-2 mt-4">Valor atual x mínimo dos primeiros 12
         produtos</label>
-      <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50">
         <ChartBar />
       </div>
       <hr />
       <label class="block text-sm/6 font-medium text-gray-900 mb-2 mt-4">Quantidade atual x mínima dos últimos 12
         produtos</label>
-      <div class="flex items-center justify-center h-60 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <div class="flex items-center justify-center h-60 mb-4 rounded bg-gray-50">
         <ChartLine />
       </div>
 
