@@ -10,7 +10,7 @@ export const useProductsStore = defineStore("products", {
   }),
   actions: {
     async fetchProducts(filters: any) {
-        console.log(filters);
+      this.$reset();
       const authStore = useAuthStore();
       const config = {
         headers: {
@@ -18,7 +18,7 @@ export const useProductsStore = defineStore("products", {
         },
         params: {
             paginate: true,
-            filters
+            ...filters
         },
       };
       await axios

@@ -1,5 +1,5 @@
 // src/store/auth.ts
-import { defineStore } from "pinia";
+import { defineStore, getActivePinia, Store } from 'pinia';
 import router from "../router";
 import { toast } from '../components/toast/Toast.ts';
 import axios from "axios";
@@ -11,9 +11,9 @@ export const useAuthStore = defineStore("auth", {
   }),
   actions: {
     init() {
-      this.checkUserLogged();
       this.user = JSON.parse(localStorage.getItem("user") as string) || null;
       this.accessToken = localStorage.getItem("access_token") || "";
+      this.checkUserLogged();
     },
     setUser(payload: { user: any; token: string }) {
       this.user = payload.user;
@@ -27,6 +27,18 @@ export const useAuthStore = defineStore("auth", {
       this.accessToken = "";
       localStorage.removeItem("user");
       localStorage.removeItem("access_token");
+
+      const pinia = getActivePinia();
+      if (!pinia) return;
+
+        pinia._s.forEach((store: Store) => {
+          if (typeof (store as any).resetStore === "function") {
+            (store as any).resetStore();
+          } else if (typeof store.$reset === "function") {
+            store.$reset();
+          }
+      });
+      
       router.push("/login");
     },
     async login(email: string, password: string) {
@@ -43,7 +55,10 @@ export const useAuthStore = defineStore("auth", {
       });
     },
     async checkUserLogged() {
-      await axios.post(import.meta.env.VITE_API_URL+'/check_user')
+      const config = {
+        headers: { Authorization: `Bearer ${this.accessToken}` }
+      };
+      await axios.get(import.meta.env.VITE_API_URL+'/check_user', config)
       .then(() => {
       })
       .catch(() => {

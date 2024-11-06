@@ -41,7 +41,6 @@ export default {
     data() {
         return {
             isOpen: false,
-            filters: {},
         };
     },
     computed: {
@@ -51,9 +50,9 @@ export default {
         },
     },
     methods: {
-        open() {
+        open(filters) {
             this.isOpen = true;
-            this.fetchProducts(this.filters);
+            this.fetchProducts(filters);
         },
         close() {
             this.isOpen = false;

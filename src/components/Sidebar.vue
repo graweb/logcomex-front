@@ -1,16 +1,14 @@
 <script setup>
-import { reactive, ref, defineEmits } from 'vue';
+import { reactive, ref, toRaw } from 'vue';
 import Input from '../components/Input.vue';
 import Details from '../components/Details.vue';
 import { toast } from '../components/toast/Toast.ts';
 
-const emit = defineEmits(['filterData']); // Emite o evento 'filterData'
-
 const fields = reactive({
-    code: "",
-    name: "",
-    description: "",
-    quantity: "",
+    code: null,
+    name: null,
+    description: null,
+    quantity: null,
 });
 
 // Referência para o modal
@@ -18,16 +16,14 @@ const modal = ref(null);
 
 // Função para abrir o modal
 function openModal() {
-    const filledFieldsCount = Object.values(fields).filter(value => value !== "").length;
+    const filledFieldsCount = Object.values(fields).filter(value => value !== null).length;
 
-    if (filledFieldsCount !== 1) {
+    if (!filledFieldsCount) {
         toast('warning', 'Preencha apenas um campo para fazer a busca');
         return;
     }
 
-    // Emitir os dados para o componente pai
-    emit('filterData', { ...fields });
-    modal.value.open();
+    modal.value.open(toRaw(fields));
 }
 </script>
 
@@ -43,7 +39,7 @@ function openModal() {
                         placeholder="Digite o código" />
                 </li>
                 <li>
-                    <Input id="name" name="name" type="text" v-model="fields.name" label="Nome"
+                    <Input id="name" name="name" type="text" v-model="fields.name" label="Nome do produto"
                         placeholder="Digite o nome" />
                 </li>
                 <li>
