@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from 'vue';
 import ChartPie from '../components/charts/ChartPie.vue';
 import ChartDoughnut from '../components/charts/ChartDoughnut.vue';
@@ -28,7 +28,7 @@ const fields = reactive({
   end_date: dayjs().endOf('month').format('YYYY-MM-DD'),
 });
 
-function search() {
+async function search() {
   if (fields.start_date == "") {
     toast('warning', 'Preencha a data inicial!');
     return;
@@ -40,24 +40,24 @@ function search() {
   }
 
   // Chama os métodos de fetch de cada store passando as datas
-  chartPieStore.fetchChartPieData(fields.start_date, fields.end_date);
-  chartDoughnutStore.fetchChartDoughnutData(fields.start_date, fields.end_date);
-  chartPolarAreaStore.fetchChartPolarAreaData(fields.start_date, fields.end_date);
-  chartLineStore.fetchChartLineData(fields.start_date, fields.end_date);
-  chartBarStore.fetchBarChartData(fields.start_date, fields.end_date);
+  await Promise.all([
+    chartPieStore.fetchChartPieData(fields.start_date, fields.end_date),
+    chartDoughnutStore.fetchChartDoughnutData(fields.start_date, fields.end_date),
+    chartPolarAreaStore.fetchChartPolarAreaData(fields.start_date, fields.end_date),
+    chartLineStore.fetchChartLineData(fields.start_date, fields.end_date),
+    chartBarStore.fetchBarChartData(fields.start_date, fields.end_date),
+  ]);
 }
 </script>
 
 <template>
-  <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
-        <Input id="start_date" name="start_date" type="date" v-model="fields.start_date" label="Cadastrado de"
-          @change="search" />
-        <Input id="end_date" name="end_date" type="date" v-model="fields.end_date" label="Cadastrado até"
-          @change="search" />
-      </div>
-      <hr />
+  <section class="p-3 px-5 flex flex-col w-full border-2 border-gray-200 border-dashed rounded-lg">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+      <Input id="start_date" name="start_date" type="date" v-model="fields.start_date" label="Cadastrado de"
+        @change="search" />
+      <Input id="end_date" name="end_date" type="date" v-model="fields.end_date" label="Cadastrado até"
+        @change="search" />
+    </div>
       <label class="block text-sm/6 font-medium text-gray-900 mb-2 mt-4">Últimos 5 produtos cadastrados por
         região</label>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
@@ -83,7 +83,5 @@ function search() {
       <div class="flex items-center justify-center h-60 mb-4 rounded bg-gray-50">
         <ChartLine />
       </div>
-
-    </div>
-  </div>
+  </section>
 </template>

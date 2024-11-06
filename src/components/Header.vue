@@ -3,19 +3,24 @@ import { useAuthStore } from '../stores/auth';
 import Logout from '../assets/icons/Logout.vue';
 import Showsidebar from '../assets/icons/Showsidebar.vue';
 
-const authStore = useAuthStore()
+const authStore = useAuthStore();
+const toogleSidebar = defineModel();
 
 async function logout() {
   await authStore.logout();
 }
+
+function toggleSideBar() {
+    toogleSidebar.value = !toogleSidebar.value;
+}
 </script>
 
 <template>
-    <nav class="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
+    <header class="w-full h-fit max-h-[88px] bg-white border-b border-gray-200">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
-                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" @click="toggleSideBar"
                         aria-controls="logo-sidebar" type="button"
                         class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
                         <span class="sr-only">Abrir</span>
@@ -30,5 +35,5 @@ async function logout() {
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 </template>
